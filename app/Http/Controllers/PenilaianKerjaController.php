@@ -8,6 +8,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\PenilaianKerjaRepository;
 use Illuminate\Http\Request;
 use Flash;
+use App\Models\PenilaianKerja;
 
 class PenilaianKerjaController extends AppBaseController
 {
@@ -44,12 +45,22 @@ class PenilaianKerjaController extends AppBaseController
     public function store(CreatePenilaianKerjaRequest $request)
     {
         $input = $request->all();
+        // return $input;
 
-        $penilaianKerja = $this->penilaianKerjaRepository->create($input);
+        $penilaianKerja = PenilaianKerja::create([
+        'bobot_penilaian' => $input['bobot_penilaian'],
+        'elemen_penilaian' => $input['elemen_penilaian'],
+        'deskriptor' => $input['deskriptor'],
+        'baik_jika' => $input['baik_jika'],
+        'hasil_esesmen' => $input['hasil_esesmen'],
+        'pemisah_id' => $input['pemisah_id'],
+        'users_id' => $input['users_id']
+        ]);
+
 
         Flash::success('Penilaian Kerja saved successfully.');
 
-        return redirect(route('penilaianKerja.index'));
+        return redirect(route('penilaianKerjas.index'));
     }
 
     /**
@@ -62,7 +73,7 @@ class PenilaianKerjaController extends AppBaseController
         if (empty($penilaianKerja)) {
             Flash::error('Penilaian Kerja not found');
 
-            return redirect(route('penilaianKerja.index'));
+            return redirect(route('penilaianKerjas.index'));
         }
 
         return view('penilaian_kerjas.show')->with('penilaianKerja', $penilaianKerja);
@@ -78,7 +89,7 @@ class PenilaianKerjaController extends AppBaseController
         if (empty($penilaianKerja)) {
             Flash::error('Penilaian Kerja not found');
 
-            return redirect(route('penilaianKerja.index'));
+            return redirect(route('penilaianKerjas.index'));
         }
 
         return view('penilaian_kerjas.edit')->with('penilaianKerja', $penilaianKerja);
@@ -94,14 +105,14 @@ class PenilaianKerjaController extends AppBaseController
         if (empty($penilaianKerja)) {
             Flash::error('Penilaian Kerja not found');
 
-            return redirect(route('penilaianKerja.index'));
+            return redirect(route('penilaianKerjas.index'));
         }
 
         $penilaianKerja = $this->penilaianKerjaRepository->update($request->all(), $id);
 
         Flash::success('Penilaian Kerja updated successfully.');
 
-        return redirect(route('penilaianKerja.index'));
+        return redirect(route('penilaianKerjas.index'));
     }
 
     /**
@@ -116,13 +127,13 @@ class PenilaianKerjaController extends AppBaseController
         if (empty($penilaianKerja)) {
             Flash::error('Penilaian Kerja not found');
 
-            return redirect(route('penilaianKerja.index'));
+            return redirect(route('penilaianKerjas.index'));
         }
 
         $this->penilaianKerjaRepository->delete($id);
 
         Flash::success('Penilaian Kerja deleted successfully.');
 
-        return redirect(route('penilaianKerja.index'));
+        return redirect(route('penilaianKerjas.index'));
     }
 }

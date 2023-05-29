@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 class PenilaianKerja extends Model
 {
-     public $table = 'penilaian_kerja';
+    public $table = 'penilaian_kerja';
 
     public $fillable = [
+        'hasil_asesmen',
         'bobot_penilaian',
         'elemen_penilaian',
         'deskriptor',
         'baik_jika',
-        'hasil_esesmen',
         'pemisah_id',
         'users_id'
     ];

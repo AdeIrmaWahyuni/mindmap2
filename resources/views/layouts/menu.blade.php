@@ -34,9 +34,17 @@
 @endrole
 
 
+
 <li class="nav-item">
-    <a href="{{ route('penilaianKerja.index') }}" class="nav-link {{ Request::is('penilaianKerjas*') ? 'active' : '' }}">
+    <a href="{{ route('penilaianKerjas.index') }}" class="nav-link {{ Request::is('penilaianKerjas*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Penilaian Kerjas</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('pemisahs.index') }}" class="nav-link {{ Request::is('pemisahs*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Pemisahs</p>
     </a>
 </li>

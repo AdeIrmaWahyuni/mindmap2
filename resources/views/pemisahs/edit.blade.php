@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Create Penilaian Kerjas
+                        Edit Pemisah
                     </h1>
                 </div>
             </div>
@@ -19,19 +19,17 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'penilaianKerjas.store']) !!}
+            {!! Form::model($pemisah, ['route' => ['pemisahs.update', $pemisah->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
-
                 <div class="row">
-                    @include('penilaian_kerjas.fields')
+                    @include('pemisahs.fields')
                 </div>
-
             </div>
 
             <div class="card-footer">
                 {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('penilaianKerjas.index') }}" class="btn btn-default"> Cancel </a>
+                <a href="{{ route('pemisahs.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

@@ -36,15 +36,10 @@ Route::post('generator_builder/generate-from-file','\InfyOm\GeneratorBuilder\Con
 
 
 
-Route::resource('rumahs', App\Http\Controllers\RumahController::class);
-
-
-
-
 
 Route::resource('users', App\Http\Controllers\UserController::class);
 Route::resource('roles', App\Http\Controllers\RoleController::class);
 Route::resource('permissions', App\Http\Controllers\PermissionController::class);
 
-Route::resource('penilaianKerja', App\Http\Controllers\PenilaianKerjaController::class);
 Route::resource('penilaianKerjas', App\Http\Controllers\PenilaianKerjaController::class);
+Route::resource('pemisahs', App\Http\Controllers\PemisahController::class);

@@ -6,12 +6,12 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
-                    @lang('models/penilaianKerjas.singular') @lang('crud.detail')
+                    @lang('models/pemisahs.singular') @lang('crud.detail')
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('penilaianKerjas.index') }}">
+                       href="{{ route('pemisahs.index') }}">
                                                     @lang('crud.back')
                                             </a>
                 </div>
@@ -23,7 +23,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    @include('penilaian_kerjas.show_fields')
+                    @include('pemisahs.show_fields')
                 </div>
             </div>
         </div>

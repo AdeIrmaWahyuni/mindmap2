@@ -8,6 +8,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\PenilaianKerjaRepository;
 use Illuminate\Http\Request;
 use Flash;
+use App\Models\User;
 use App\Models\PenilaianKerja;
 
 class PenilaianKerjaController extends AppBaseController
@@ -26,7 +27,6 @@ class PenilaianKerjaController extends AppBaseController
     public function index(Request $request)
     {
         $penilaianKerjas = $this->penilaianKerjaRepository->paginate(10);
-
         return view('penilaian_kerjas.index')
             ->with('penilaianKerjas', $penilaianKerjas);
     }
@@ -52,7 +52,7 @@ class PenilaianKerjaController extends AppBaseController
         'elemen_penilaian' => $input['elemen_penilaian'],
         'deskriptor' => $input['deskriptor'],
         'baik_jika' => $input['baik_jika'],
-        'hasil_esesmen' => $input['hasil_esesmen'],
+        'hasil_asesmen' => $input['hasil_asesmen'],
         'pemisah_id' => $input['pemisah_id'],
         'users_id' => $input['users_id']
         ]);

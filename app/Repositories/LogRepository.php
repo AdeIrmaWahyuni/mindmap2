@@ -2,18 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Models\PenilaianKerja;
+use App\Models\Log;
 use App\Repositories\BaseRepository;
 
-class PenilaianKerjaRepository extends BaseRepository
+class LogRepository extends BaseRepository
 {
     protected $fieldSearchable = [
-        'bobot_penilaian',
-        'elemen_penilaian',
-        'deskriptor',
-        'baik_jika',
-        'hasil_asesmen',
-        'pemisah_id',
+        'pesan',
         'users_id'
     ];
 
@@ -24,6 +19,6 @@ class PenilaianKerjaRepository extends BaseRepository
 
     public function model(): string
     {
-        return PenilaianKerja::class;
+        return Log::class;
     }
 }

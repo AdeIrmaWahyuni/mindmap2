@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('penilaian_kerjas', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('bobot_penilaian');
-            $table->string('elemen_penilaian');
-            $table->string('deskriptor');
-            $table->string('baik_jika');
-            $table->string('hasil_asesmen');
-            $table->integer('pemisah_id');
+            $table->string('pesan');
             $table->integer('users_id');
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::drop('penilaian_kerjas');
+        Schema::drop('logs');
     }
 };

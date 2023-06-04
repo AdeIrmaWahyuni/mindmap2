@@ -24,8 +24,8 @@
 
 <!-- Hasil Esesmen Field -->
 <div class="col-sm-12">
-    {!! Form::label('hasil_esesmen', 'Hasil Esesmen:') !!}
-    <p>{{ $penilaianKerja->hasil_esesmen }}</p>
+    {!! Form::label('hasil_asesmen', 'Hasil Esesmen:') !!}
+    <p>{{ $penilaianKerja->hasil_asesmen }}</p>
 </div>
 
 <!-- Created At Field -->

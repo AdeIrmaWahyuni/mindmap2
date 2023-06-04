@@ -24,8 +24,8 @@
 
 <!-- Hasil Esesmen Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('hasil_esesmen', 'Hasil Esesmen:') !!}
-    {!! Form::text('hasil_esesmen', null, ['class' => 'form-control']) !!}
+    {!! Form::label('hasil_asesmen', 'Hasil Asesmen:') !!}
+    {!! Form::text('hasil_asesmen', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Pemisah Id Field -->

@@ -60,7 +60,7 @@
         "inView": true
     },
     {
-        "name": "hasil_esesmen",
+        "name": "hasil_asesmen",
         "dbType": "string",
         "htmlType": "text",
         "validations": "",

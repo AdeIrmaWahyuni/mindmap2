@@ -23,7 +23,7 @@ class PenilaianKerja extends Model
         'elemen_penilaian' => 'string',
         'deskriptor' => 'string',
         'baik_jika' => 'string',
-        'hasil_esesmen' => 'string',
+        'hasil_asesmen' => 'string',
         'pemisah_id' => 'integer',
         'users_id' => 'integer'
     ];

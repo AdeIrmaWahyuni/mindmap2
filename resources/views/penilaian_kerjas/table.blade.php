@@ -9,7 +9,6 @@
                 <th>Baik Jika</th>
                 <th>Hasil Esesmen</th>
                 <th>Pemisah Id</th>
-                <th>Users Id</th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
@@ -20,9 +19,8 @@
                     <td>{{ $penilaianKerja->elemen_penilaian }}</td>
                     <td>{{ $penilaianKerja->deskriptor }}</td>
                     <td>{{ $penilaianKerja->baik_jika }}</td>
-                    <td>{{ $penilaianKerja->hasil_esesmen }}</td>
+                    <td>{{ $penilaianKerja->hasil_asesmen }}</td>
                     <td>{{ $penilaianKerja->pemisah_id }}</td>
-                    <td>{{ $penilaianKerja->users_id }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['penilaianKerjas.destroy', $penilaianKerja->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

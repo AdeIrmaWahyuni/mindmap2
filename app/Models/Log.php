@@ -22,5 +22,11 @@ class Log extends Model
         
     ];
 
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'users_id');
+    }
+
+    
     
 }

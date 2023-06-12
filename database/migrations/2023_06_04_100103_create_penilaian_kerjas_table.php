@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('penilaian_kerjas', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('no_butir');
             $table->string('bobot_penilaian');
             $table->string('elemen_penilaian');
             $table->string('deskriptor');

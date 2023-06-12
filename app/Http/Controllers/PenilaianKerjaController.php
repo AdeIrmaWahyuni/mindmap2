@@ -7,9 +7,10 @@ use App\Http\Requests\UpdatePenilaianKerjaRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\PenilaianKerjaRepository;
 use Illuminate\Http\Request;
-use Flash;
-use App\Models\User;
+use App\Models\Pemisah;
 use App\Models\PenilaianKerja;
+use Flash;
+use Auth;
 
 class PenilaianKerjaController extends AppBaseController
 {
@@ -25,10 +26,19 @@ class PenilaianKerjaController extends AppBaseController
      * Display a listing of the PenilaianKerja.
      */
     public function index(Request $request)
+    
     {
-        $penilaianKerjas = $this->penilaianKerjaRepository->paginate(10);
+        $pemisahs = Pemisah::all();
+
+
+        foreach ($pemisahs as $pemisah) {
+            $penilaianKerja = PenilaianKerja::where('pemisah_id',$pemisah->id)->get();
+            $pemisah['penilaianKerjap'] = $penilaianKerja;
+        }
+        
+
         return view('penilaian_kerjas.index')
-            ->with('penilaianKerjas', $penilaianKerjas);
+            ->with('pemisahs', $pemisahs);
     }
 
     /**
@@ -36,7 +46,8 @@ class PenilaianKerjaController extends AppBaseController
      */
     public function create()
     {
-        return view('penilaian_kerjas.create');
+        $pemisahs = Pemisah::pluck('nama','id');
+        return view('penilaian_kerjas.create')->with('pemisahs', $pemisahs);
     }
 
     /**
@@ -45,18 +56,10 @@ class PenilaianKerjaController extends AppBaseController
     public function store(CreatePenilaianKerjaRequest $request)
     {
         $input = $request->all();
-        // return $input;
 
-        $penilaianKerja = PenilaianKerja::create([
-        'bobot_penilaian' => $input['bobot_penilaian'],
-        'elemen_penilaian' => $input['elemen_penilaian'],
-        'deskriptor' => $input['deskriptor'],
-        'baik_jika' => $input['baik_jika'],
-        'hasil_asesmen' => $input['hasil_asesmen'],
-        'pemisah_id' => $input['pemisah_id'],
-        'users_id' => $input['users_id']
-        ]);
+        $input['users_id'] = Auth::User()->id;
 
+        $penilaianKerja = $this->penilaianKerjaRepository->create($input);
 
         Flash::success('Penilaian Kerja saved successfully.');
 
@@ -91,8 +94,8 @@ class PenilaianKerjaController extends AppBaseController
 
             return redirect(route('penilaianKerjas.index'));
         }
-
-        return view('penilaian_kerjas.edit')->with('penilaianKerja', $penilaianKerja);
+        $pemisahs = Pemisah::pluck('nama','id');    
+        return view('penilaian_kerjas.edit')->with('penilaianKerja', $penilaianKerja)->with('pemisahs', $pemisahs);
     }
 
     /**
@@ -107,7 +110,7 @@ class PenilaianKerjaController extends AppBaseController
 
             return redirect(route('penilaianKerjas.index'));
         }
-
+        // $input['users_id'] = Auth::User()->id;
         $penilaianKerja = $this->penilaianKerjaRepository->update($request->all(), $id);
 
         Flash::success('Penilaian Kerja updated successfully.');

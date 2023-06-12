@@ -8,6 +8,7 @@ use App\Repositories\BaseRepository;
 class PenilaianKerjaRepository extends BaseRepository
 {
     protected $fieldSearchable = [
+        'no_butir',
         'bobot_penilaian',
         'elemen_penilaian',
         'deskriptor',

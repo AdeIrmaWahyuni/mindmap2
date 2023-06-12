@@ -44,3 +44,5 @@ Route::resource('permissions', App\Http\Controllers\PermissionController::class)
 Route::resource('penilaianKerjas', App\Http\Controllers\PenilaianKerjaController::class);
 Route::resource('pemisahs', App\Http\Controllers\PemisahController::class);
 Route::resource('logs', App\Http\Controllers\LogController::class);
+
+Route::resource('penilaian-kerjas', App\Http\Controllers\PenilaianKerjaController::class);

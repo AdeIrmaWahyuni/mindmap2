@@ -20,6 +20,10 @@ class Pemisah extends Model
         
     ];
 
-    
+
+    public function penilaianKerjas(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\PenilaianKerja::class, 'pemisah_id');
+    }
     
 }

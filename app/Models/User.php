@@ -34,5 +34,15 @@ class User extends Authenticatable
         'password' => 'required'
     ];
 
-    
+
+    public function logs(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\Log::class,'users_id');
+    }
+
+    public function penilaianKerja(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\PenilaianKerja::class, 'users_id');
+    }
+
 }

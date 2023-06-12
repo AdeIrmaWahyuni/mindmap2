@@ -35,12 +35,6 @@
 
 
 
-<li class="nav-item">
-    <a href="{{ route('penilaianKerjas.index') }}" class="nav-link {{ Request::is('penilaianKerjas*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Penilaian Kerjas</p>
-    </a>
-</li>
 
 <li class="nav-item">
     <a href="{{ route('pemisahs.index') }}" class="nav-link {{ Request::is('pemisahs*') ? 'active' : '' }}">
@@ -53,5 +47,13 @@
     <a href="{{ route('logs.index') }}" class="nav-link {{ Request::is('logs*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Logs</p>
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a href="{{ route('penilaianKerjas.index') }}" class="nav-link {{ Request::is('penilaianKerjas*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Penilaian Kerjas</p>
     </a>
 </li>

@@ -12,18 +12,6 @@
         "inView": false
     },
     {
-        "name": "no_butir",
-        "dbType": "string",
-        "htmlType": "text",
-        "validations": "",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
         "name": "bobot_penilaian",
         "dbType": "string",
         "htmlType": "text",

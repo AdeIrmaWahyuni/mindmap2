@@ -1,3 +1,9 @@
+<!-- No Butir Field -->
+<div class="col-sm-12">
+    {!! Form::label('no_butir', 'No Butir:') !!}
+    <p>{{ $penilaianKerja->no_butir }}</p>
+</div>
+
 <!-- Bobot Penilaian Field -->
 <div class="col-sm-12">
     {!! Form::label('bobot_penilaian', 'Bobot Penilaian:') !!}
@@ -22,9 +28,9 @@
     <p>{{ $penilaianKerja->baik_jika }}</p>
 </div>
 
-<!-- Hasil Esesmen Field -->
+<!-- Hasil Asesmen Field -->
 <div class="col-sm-12">
-    {!! Form::label('hasil_asesmen', 'Hasil Esesmen:') !!}
+    {!! Form::label('hasil_asesmen', 'Hasil Asesmen:') !!}
     <p>{{ $penilaianKerja->hasil_asesmen }}</p>
 </div>
 

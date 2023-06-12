@@ -1,3 +1,9 @@
+<!-- No Butir Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('no_butir', 'No Butir:') !!}
+    {!! Form::text('no_butir', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Bobot Penilaian Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('bobot_penilaian', 'Bobot Penilaian:') !!}
@@ -22,20 +28,19 @@
     {!! Form::text('baik_jika', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Hasil Esesmen Field -->
+<!-- Hasil Asesmen Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('hasil_asesmen', 'Hasil Asesmen:') !!}
     {!! Form::text('hasil_asesmen', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Pemisah Id Field -->
-<div class="form-group col-sm-6">
+{{-- <div class="form-group col-sm-6">
     {!! Form::label('pemisah_id', 'Pemisah Id:') !!}
     {!! Form::number('pemisah_id', null, ['class' => 'form-control']) !!}
-</div>
+</div> --}}
 
-<!-- Users Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('users_id', 'Users Id:') !!}
-    {!! Form::number('users_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('pemisah_id', 'Pemisah:') !!}
+    {!! Form::select('pemisah_id', $pemisahs, null, ['class' => 'form-control border-info round','id'=>'suku','placeholder'=>'- Pilih - ']) !!}
 </div>

@@ -8,17 +8,19 @@ class PenilaianKerja extends Model
     public $table = 'penilaian_kerja';
 
     public $fillable = [
-        'hasil_asesmen',
+        'no_butir',
         'bobot_penilaian',
         'elemen_penilaian',
         'deskriptor',
         'baik_jika',
+        'hasil_asesmen',
         'pemisah_id',
         'users_id'
     ];
 
     protected $casts = [
         'id' => 'integer',
+        'no_butir' => 'string',
         'bobot_penilaian' => 'string',
         'elemen_penilaian' => 'string',
         'deskriptor' => 'string',
@@ -32,5 +34,15 @@ class PenilaianKerja extends Model
         
     ];
 
-    
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
+
+    public function pemisah(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(\App\Models\Profile::class, 'pemisah_id');
+    }
+
 }

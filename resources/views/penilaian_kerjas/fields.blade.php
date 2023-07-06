@@ -41,6 +41,43 @@
 </div> --}}
 
 <div class="form-group col-sm-6">
-    {!! Form::label('pemisah_id', 'Pemisah:') !!}
+    {!! Form::label('pemisah_id', 'Kriteria:') !!}
     {!! Form::select('pemisah_id', $pemisahs, null, ['class' => 'form-control border-info round','id'=>'suku','placeholder'=>'- Pilih - ']) !!}
 </div>
+
+<div class="form-group col-sm-6">
+    {{ Form::label('penilaian', 'Nilai') }}
+    {{ Form::number('penilaian', null, ['class' => 'form-control border-info round']) }}
+</div>
+
+<div class="form-group col-sm-6">
+    {{ Form::label('link', 'Link') }}
+    {{ Form::textarea('link', null, ['class' => 'form-control border-info round']) }}
+</div>
+
+
+@if(isset($files))
+
+    <div class="form-group col-sm-6">
+        <label for="formFileMultiple" class="form-label">Masukan file</label>
+        <input class="form-control" name="files[]" type="file" id="formFileMultiple" multiple>
+    </div>
+
+    <div class="form-group col-sm-6">
+    <label for="existingFiles">Existing Files</label>
+    @foreach ($files as $file)
+        <div class="card mb-3">
+        <div class="card-body">
+            <h6 class="card-title">{{ $file->name }}</h6>
+            <p class="card-text">Size: {{ $file->human_readable_size }}</p>
+            <a href="{{ $file->getUrl() }}" class="btn btn-primary">Download</a>
+        </div>
+        </div>
+    @endforeach
+    </div>
+@else
+    <div class="form-group col-sm-6">
+        <label for="formFileMultiple" class="form-label">Masukan file</label>
+        <input class="form-control" name="files[]" type="file" id="formFileMultiple" multiple>
+    </div>
+@endif

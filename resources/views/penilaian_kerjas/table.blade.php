@@ -11,6 +11,8 @@
                 <th>Deskriptor</th>
                 <th>Baik Jika</th>
                 <th>Hasil Asesmen</th>
+                <th>Nilai</th>
+                <th>Link</th>
                 <th colspan="3">Action</th>
             </tr>
             </thead>
@@ -22,7 +24,7 @@
                 @foreach($pemisah->penilaianKerjap as $penilaianKerjax)
                 <?php 
                     if($nama != ''){
-                        echo '<tr><td colspan="7" class="table-active"> '. $nama .'  </td></tr>';
+                        echo '<tr><td colspan="9" class="table-active"> '. $nama .'  </td></tr>';
                         $nama = '';
                     }
                 ?>
@@ -33,6 +35,13 @@
                         <td>{{ $penilaianKerjax->deskriptor }}</td>
                         <td>{{ $penilaianKerjax->baik_jika }}</td>
                         <td>{{ $penilaianKerjax->hasil_asesmen }}</td>
+                        <td>{{ $penilaianKerjax->penilaian }}</td>
+                        <td> 
+                            @foreach($penilaianKerjax->linkArray as $link)
+                                <a href="{{ $link }}" target="_blank">{{ $link }}</a><br>
+                            @endforeach
+                        </td>
+                        {{-- <td> <a href="{{ $penilaianKerjax->link }}"> {{  $penilaianKerjax->link }} </a></td> --}}
                         <td  style="width: 120px">
                             {!! Form::open(['route' => ['penilaianKerjas.destroy', $penilaianKerjax->id], 'method' => 'delete']) !!}
                             <div class='btn-group'>

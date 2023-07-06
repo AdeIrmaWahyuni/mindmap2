@@ -7,7 +7,11 @@ use App\Http\Requests\UpdatePemisahRequest;
 use App\Http\Controllers\AppBaseController;
 use App\Repositories\PemisahRepository;
 use Illuminate\Http\Request;
+use App\Models\Log;
+use App\Models\Pemisah;
 use Flash;
+use DB;
+use Auth;
 
 class PemisahController extends AppBaseController
 {
@@ -43,15 +47,34 @@ class PemisahController extends AppBaseController
      */
     public function store(CreatePemisahRequest $request)
     {
+        //andi Menambah pemisah
         $input = $request->all();
-
         $pemisah = $this->pemisahRepository->create($input);
-
+        $log = Log::create([
+            'pesan' => 'Menambah pemisah ' . $request->nama,
+            'users_id' => Auth::User()->id
+        ]);
+        $log->save();
         Flash::success('Pemisah saved successfully.');
+        // try{
+        //     DB::beginTransaction();
+            
+            
+           
+
+            
+        //     DB::commit();
+        //     Flash::success("Data berhasil ditambahkan");
+        // // return $user;
+        // }catch (Exception $e){
+        //     DB::rollBack();
+        //     Flash::error($e);   
+        // }
 
         return redirect(route('pemisahs.index'));
     }
 
+    
     /**
      * Display the specified Pemisah.
      */
@@ -96,8 +119,13 @@ class PemisahController extends AppBaseController
 
             return redirect(route('pemisahs.index'));
         }
-
+        $pemisahLama = Pemisah::find($id);
         $pemisah = $this->pemisahRepository->update($request->all(), $id);
+        $log = Log::create([
+            'pesan' => 'Memperbarui Pemisah ' . $pemisahLama->nama . ' Menjadi ' . $pemisah->nama,
+            'users_id' => Auth::User()->id
+        ]);
+        $log->save();
 
         Flash::success('Pemisah updated successfully.');
 
@@ -120,6 +148,11 @@ class PemisahController extends AppBaseController
         }
 
         $this->pemisahRepository->delete($id);
+        $log = Log::create([
+            'pesan' => 'Menghapus Kriteria' . $pemisah->nama,
+            'users_id' => Auth::User()->id
+        ]);
+        $log->save();
 
         Flash::success('Pemisah deleted successfully.');
 

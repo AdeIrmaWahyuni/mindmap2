@@ -8,7 +8,8 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\LogRepository;
 use Illuminate\Http\Request;
 use Flash;
-use App\Models\User;
+use App\Models\User; 
+use App\Models\Log; 
 
 class LogController extends AppBaseController
 {
@@ -23,17 +24,17 @@ class LogController extends AppBaseController
     /**
      * Display a listing of the Log.
      */
-    public function index(Request $request)
-    {
-        $logs = $this->logRepository->paginate(10);
-        // return $logs;
-        foreach ($logs as $log) {
-             $log['nama'] =  User::find($log['users_id'])['name'] ;
-        }
-
-        return view('logs.index')
-            ->with('logs', $logs);
+public function index(Request $request)
+{
+    $logs = Log::orderBy('created_at', 'desc')->paginate(10);
+    
+    foreach ($logs as $log) {
+        $user = User::find($log->users_id);
+        $log['nama'] = $user ? $user->name : '';
     }
+    
+    return view('logs.index', compact('logs'));
+}
 
     /**
      * Show the form for creating a new Log.

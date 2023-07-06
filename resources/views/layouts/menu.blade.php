@@ -7,12 +7,7 @@
 </li>
 
 
-<li class="nav-item">
-    <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Users</p>
-    </a>
-</li>
+
 
 
 @role('admin')
@@ -31,15 +26,11 @@
         <p>Permissions</p>
     </a>
 </li>
-@endrole
-
-
-
 
 <li class="nav-item">
-    <a href="{{ route('pemisahs.index') }}" class="nav-link {{ Request::is('pemisahs*') ? 'active' : '' }}">
+    <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Pemisahs</p>
+        <p>Users</p>
     </a>
 </li>
 
@@ -49,11 +40,24 @@
         <p>Logs</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ route('pemisahs.index') }}" class="nav-link {{ Request::is('pemisahs*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Kriteria</p>
+    </a>
+</li>
+
+@endrole
+
+
+
+
+
 
 
 <li class="nav-item">
     <a href="{{ route('penilaianKerjas.index') }}" class="nav-link {{ Request::is('penilaianKerjas*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Penilaian Kerjas</p>
+        <p>Penilaian Kerja</p>
     </a>
 </li>

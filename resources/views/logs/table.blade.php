@@ -5,6 +5,8 @@
             <tr>
                 <th>Pesan</th>
                 <th>Orang</th>
+                <th>Tanggal</th>
+                <th>Jam</th>
                 <th colspan="3">Detail</th>
             </tr>
             </thead>
@@ -13,6 +15,8 @@
                 <tr>
                     <td>{{ $log->pesan }}</td>
                     <td>{{ $log->nama }}</td>
+                    <td>{{ date('Y-m-d', strtotime($log->created_at)) }}</td>
+                    <td>{{ date('H:i:s', strtotime($log->created_at)) }}</td>
                     <td  style="width: 120px">
                         {!! Form::open(['route' => ['logs.destroy', $log->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>

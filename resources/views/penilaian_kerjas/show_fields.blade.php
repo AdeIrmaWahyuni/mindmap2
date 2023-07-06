@@ -58,3 +58,14 @@
     <p>{{ $penilaianKerja->users_id }}</p>
 </div>
 
+@foreach ($files as $file)
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ $file->name }}</h5>
+            <p class="card-text">Size: {{ $file->human_readable_size }}</p>
+            <a href="{{ $file->getUrl() }}" class="btn btn-primary">Download</a>
+        </div>
+    </div>
+@endforeach
+
+

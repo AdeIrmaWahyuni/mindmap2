@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Pemisah;
 use App\Models\PenilaianKerja;
 use Flash;
+use App\Models\Log;
 use Auth;
 
 class PenilaianKerjaController extends AppBaseController
@@ -33,9 +34,14 @@ class PenilaianKerjaController extends AppBaseController
 
         foreach ($pemisahs as $pemisah) {
             $penilaianKerja = PenilaianKerja::where('pemisah_id',$pemisah->id)->get();
+            
+            foreach ($penilaianKerja as $penilaianKerjax) {
+                $penilaianKerjax['linkArray'] = explode(PHP_EOL, $penilaianKerjax->link);
+            }
             $pemisah['penilaianKerjap'] = $penilaianKerja;
+
         }
-        
+
 
         return view('penilaian_kerjas.index')
             ->with('pemisahs', $pemisahs);
@@ -55,11 +61,25 @@ class PenilaianKerjaController extends AppBaseController
      */
     public function store(CreatePenilaianKerjaRequest $request)
     {
+        // return $request->file('files');
         $input = $request->all();
-
         $input['users_id'] = Auth::User()->id;
 
         $penilaianKerja = $this->penilaianKerjaRepository->create($input);
+        
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $penilaianKerja->addMedia($file)->toMediaCollection('file');
+            }
+        }
+
+        $pemisah = Pemisah::where('id',$request->pemisah_id)->first();
+
+        $log = Log::create([
+            'pesan' => "Menambah Data Penilaian Kerja " . $request->no_butir." Pada Kriteria " . $pemisah->nama,
+            'users_id' => Auth::User()->id
+        ]);
+        $log->save();
 
         Flash::success('Penilaian Kerja saved successfully.');
 
@@ -79,7 +99,12 @@ class PenilaianKerjaController extends AppBaseController
             return redirect(route('penilaianKerjas.index'));
         }
 
-        return view('penilaian_kerjas.show')->with('penilaianKerja', $penilaianKerja);
+        $files = [];
+        foreach ($penilaianKerja->getMedia('file') as $media) {
+            $files[] = $media;
+        }
+
+        return view('penilaian_kerjas.show', compact('penilaianKerja', 'files'));
     }
 
     /**
@@ -89,13 +114,21 @@ class PenilaianKerjaController extends AppBaseController
     {
         $penilaianKerja = $this->penilaianKerjaRepository->find($id);
 
+        
+        $files = [];
+        foreach ($penilaianKerja->getMedia('file') as $media) {
+            $files[] = $media;
+        }
+
         if (empty($penilaianKerja)) {
             Flash::error('Penilaian Kerja not found');
 
             return redirect(route('penilaianKerjas.index'));
         }
+
+        // return $files;
         $pemisahs = Pemisah::pluck('nama','id');    
-        return view('penilaian_kerjas.edit')->with('penilaianKerja', $penilaianKerja)->with('pemisahs', $pemisahs);
+        return view('penilaian_kerjas.edit', compact('pemisahs','penilaianKerja', 'files'));
     }
 
     /**
@@ -103,16 +136,57 @@ class PenilaianKerjaController extends AppBaseController
      */
     public function update($id, UpdatePenilaianKerjaRequest $request)
     {
-        $penilaianKerja = $this->penilaianKerjaRepository->find($id);
-
+        $penilaianKerjaLama = $penilaianKerja = $this->penilaianKerjaRepository->find($id);
+        $pemisahLama = Pemisah::where('id',$request->pemisah_id)->first();
+        $pemisahLama = $pemisahLama->nama;
         if (empty($penilaianKerja)) {
             Flash::error('Penilaian Kerja not found');
 
             return redirect(route('penilaianKerjas.index'));
         }
-        // $input['users_id'] = Auth::User()->id;
-        $penilaianKerja = $this->penilaianKerjaRepository->update($request->all(), $id);
 
+        $penilaianKerja = $this->penilaianKerjaRepository->update($request->all(), $id);
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $penilaianKerja->addMedia($file)->toMediaCollection('file');
+            }
+        }
+        $rangkaiPesan = 'Memperbarui Data Penilaian Kerja ' . $penilaianKerja->nama ;
+        // return $penilaianKerja;
+        if ($penilaianKerjaLama->no_butir != $penilaianKerja->no_butir) {
+            $rangkaiPesan .= "\n Nomer Butir " . $penilaianKerjaLama->no_butir . ' Menjadi ' . $penilaianKerja->no_butir;
+        }
+        if ($penilaianKerjaLama->bobot_penilaian != $penilaianKerja->bobot_penilaian) {
+            $rangkaiPesan .= "\n, Bobot Penilaian " . $penilaianKerjaLama->bobot_penilaian . ' Menjadi ' . $penilaianKerja->bobot_penilaian;
+        }
+        if ($penilaianKerjaLama->elemen_penilaian != $penilaianKerja->elemen_penilaian) {
+            $rangkaiPesan .= "\n, Elemen Penilaian " . $penilaianKerjaLama->elemen_penilaian . ' Menjadi ' . $penilaianKerja->elemen_penilaian;
+        }
+        if ($penilaianKerjaLama->baik_jika != $penilaianKerja->baik_jika) {
+            $rangkaiPesan .= "\n, Baik Jika " . $penilaianKerjaLama->baik_jika . ' Menjadi ' . $penilaianKerja->baik_jika;
+        }
+        if ($penilaianKerjaLama->penilaian != $penilaianKerja->penilaian) {
+            $rangkaiPesan .= "\n, Penilaian " . $penilaianKerjaLama->penilaian . ' Menjadi ' . $penilaianKerja->penilaian;
+        }
+        if ($penilaianKerjaLama->link != $penilaianKerja->link) {
+            $rangkaiPesan .= "\n, Link " . $penilaianKerjaLama->link . ' Menjadi ' . $penilaianKerja->link;
+        }
+        if ($penilaianKerjaLama->hasil_asesmen != $penilaianKerja->hasil_asesmen) {
+            $rangkaiPesan .= "\n, Hasil Asesmen " . $penilaianKerjaLama->hasil_asesmen . ' Menjadi ' . $penilaianKerja->hasil_asesmen;
+        }
+        if ($penilaianKerjaLama->pemisah_id != $penilaianKerja->pemisah_id) {
+            $pemisahBaru = Pemisah::where('id',$penilaianKerja->pemisah_id)->first();
+            $pemisahBaru = $pemisahBaru->nama;
+            $rangkaiPesan .= "\n, Kereteria Menjadi " . $pemisahBaru;
+        }else{
+            $pemisah = Pemisah::where('id',$request->pemisah_id)->first();
+            $rangkaiPesan .= ' Pada Kriteria ' . $pemisah->nama;
+        }
+            
+        $log = Log::create([
+            'pesan' => $rangkaiPesan,
+            'users_id' => Auth::User()->id
+        ]);
         Flash::success('Penilaian Kerja updated successfully.');
 
         return redirect(route('penilaianKerjas.index'));
@@ -133,7 +207,14 @@ class PenilaianKerjaController extends AppBaseController
             return redirect(route('penilaianKerjas.index'));
         }
 
+        $penilaianKerja->clearMediaCollection('file');
+
         $this->penilaianKerjaRepository->delete($id);
+        $pemisah = Pemisah::where('id',$penilaianKerja->pemisah_id)->first();
+        $log = Log::create([
+            'pesan' => 'Menghapus Data Penilaian Kerja, Dengan Nomer Butir ' . $penilaianKerja->no_butir . ' Pada Kriteria '. $pemisah->nama,
+            'users_id' => Auth::User()->id
+        ]);
 
         Flash::success('Penilaian Kerja deleted successfully.');
 

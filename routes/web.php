@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -41,6 +41,9 @@ Route::resource('users', App\Http\Controllers\UserController::class);
 Route::resource('roles', App\Http\Controllers\RoleController::class);
 Route::resource('permissions', App\Http\Controllers\PermissionController::class);
 
+Route::delete('/penilaian-kerja/image/{id}', [App\Http\Controllers\PenilaianKerjaController::class, 'deleteImage'])->name('deleteImage');
+Route::get('/penilaian-kerja/image/{id}/', [App\Http\Controllers\PenilaianKerjaController::class, 'penilaianKerjaImages'])->name('penilaiankerjaimages');
+Route::post('/penilaian-kerja/tambahgambar/{id}/', [App\Http\Controllers\PenilaianKerjaController::class, 'tambahGambar'])->name('tambahgambar');
 Route::resource('penilaianKerjas', App\Http\Controllers\PenilaianKerjaController::class);
 Route::resource('pemisahs', App\Http\Controllers\PemisahController::class);
 Route::resource('logs', App\Http\Controllers\LogController::class);

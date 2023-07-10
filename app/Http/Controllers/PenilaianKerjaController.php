@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreatePenilaianKerjaRequest;
 use App\Http\Requests\UpdatePenilaianKerjaRequest;
 use App\Http\Controllers\AppBaseController;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Repositories\PenilaianKerjaRepository;
 use Illuminate\Http\Request;
 use App\Models\Pemisah;
@@ -65,8 +66,10 @@ class PenilaianKerjaController extends AppBaseController
         $input = $request->all();
         $input['users_id'] = Auth::User()->id;
 
+        
         $penilaianKerja = $this->penilaianKerjaRepository->create($input);
         
+
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
                 $penilaianKerja->addMedia($file)->toMediaCollection('file');
@@ -134,7 +137,7 @@ class PenilaianKerjaController extends AppBaseController
     /**
      * Update the specified PenilaianKerja in storage.
      */
-    public function update($id, UpdatePenilaianKerjaRequest $request)
+    public function update($id, Request $request)
     {
         $penilaianKerjaLama = $penilaianKerja = $this->penilaianKerjaRepository->find($id);
         $pemisahLama = Pemisah::where('id',$request->pemisah_id)->first();
@@ -145,12 +148,16 @@ class PenilaianKerjaController extends AppBaseController
             return redirect(route('penilaianKerjas.index'));
         }
 
+        // return $request->all();
         $penilaianKerja = $this->penilaianKerjaRepository->update($request->all(), $id);
+        
         if ($request->hasFile('files')) {
+            // return 'dfgvf';
             foreach ($request->file('files') as $file) {
                 $penilaianKerja->addMedia($file)->toMediaCollection('file');
             }
         }
+
         $rangkaiPesan = 'Memperbarui Data Penilaian Kerja ' . $penilaianKerja->nama ;
         // return $penilaianKerja;
         if ($penilaianKerjaLama->no_butir != $penilaianKerja->no_butir) {
@@ -190,6 +197,52 @@ class PenilaianKerjaController extends AppBaseController
         Flash::success('Penilaian Kerja updated successfully.');
 
         return redirect(route('penilaianKerjas.index'));
+    }
+
+    public function tambahGambar($id,Request $request)
+    {
+        $penilaianKerja = $this->penilaianKerjaRepository->find($id);
+
+        // return $penilaianKerja;
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $penilaianKerja->addMedia($file)->toMediaCollection('file');
+            }
+        }
+    
+        return redirect()->back()->with('success', 'Gambar berhasil Ditambahkan.');
+    }
+
+    public function deleteImage($mediaId)
+    {
+        // Dapatkan objek Media berdasarkan ID
+
+        // return $mediaId;
+        $media = Media::findOrFail($mediaId);
+    
+        // Hapus media dari penyimpanan
+        $media->delete();
+    
+        return redirect()->back()->with('success', 'Gambar berhasil dihapus.');
+    }
+    
+    public function penilaianKerjaImages($id, Request $request)
+    {
+        $penilaianKerja = $this->penilaianKerjaRepository->find($id);
+
+        
+        $files = [];
+        foreach ($penilaianKerja->getMedia('file') as $media) {
+            $files[] = $media;
+        }
+
+        if (empty($penilaianKerja)) {
+            Flash::error('Penilaian Kerja not found');
+
+            return redirect(route('penilaianKerjas.index'));
+        }
+
+        return view('penilaian_kerjas.image', compact('files','id'));
     }
 
     /**

@@ -26,7 +26,7 @@ class LogController extends AppBaseController
      */
 public function index(Request $request)
 {
-    $logs = Log::orderBy('created_at', 'desc')->paginate(10);
+    $logs = Log::orderBy('updated_at', 'desc')->paginate(10);
     
     foreach ($logs as $log) {
         $user = User::find($log->users_id);

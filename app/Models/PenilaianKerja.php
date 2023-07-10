@@ -26,7 +26,7 @@ class PenilaianKerja extends Model implements HasMedia
     protected $casts = [
         'id' => 'integer',
         'no_butir' => 'string',
-        'bobot_penilaian' => 'string',
+        'bobot_penilaian' => 'integer',
         'elemen_penilaian' => 'string',
         'deskriptor' => 'string',
         'baik_jika' => 'string',

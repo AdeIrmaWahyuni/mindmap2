@@ -10,7 +10,9 @@
                 <div class="card-body">
                     <h5 class="card-title">User</h5>
                     <p class="card-text">{{ $countUser }}</p>
+                    @if (Auth::check() && Auth::user()->hasRole('admin'))
                     <a href="{{ route('users.index') }}" class="btn btn-primary">Go</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -20,7 +22,10 @@
                 <div class="card-body">
                     <h5 class="card-title ">Kriteria</h5>
                      <p class="card-text">{{ $countPemisah }}</p>
-                     <a href="{{ route('pemisahs.index') }}" class="btn btn-primary">Go</a>
+                     @if (Auth::check() && Auth::user()->hasRole('admin'))
+                    <a href="{{ route('pemisahs.index') }}" class="btn btn-primary">Go</a>
+                    @endif
+                     
                 </div>
             </div>
         </div>
@@ -30,7 +35,10 @@
                 <div class="card-body">
                     <h5 class="card-title">Penilaian Kerja</h5>
                      <p class="card-text">{{ $countPenilaianKerja }}</p>
-                   <a href="{{ route('penilaianKerjas.index') }}" class="btn btn-primary">Go</a>
+                     @if (Auth::check() && Auth::user()->hasRole('admin'))
+                        <a href="{{ route('penilaianKerjas.index') }}" class="btn btn-primary">Go</a>
+                    @endif
+                   
                 </div>
             </div>
         </div>
@@ -90,6 +98,8 @@
             </tbody>
         </table>
     </div>
+    <a href="{{ route('penilaianKerjas.index') }}" class="btn btn-light btn-lg">Lihat Data Lainnya</a>
+
 
     <div class="card-footer clearfix">
         <div class="float-right">

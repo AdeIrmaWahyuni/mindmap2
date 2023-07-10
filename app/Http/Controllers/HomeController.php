@@ -36,8 +36,7 @@ class HomeController extends Controller
         $countUser = User::count();
         $countPemisah = Pemisah::count();
         $countPenilaianKerja = PenilaianKerja::count();
-        $pemisahs = Pemisah::all();
-
+        $pemisahs = Pemisah::take(2)->get();
 
         foreach ($pemisahs as $pemisah) {
             $penilaianKerja = PenilaianKerja::where('pemisah_id',$pemisah->id)->get();
@@ -50,7 +49,5 @@ class HomeController extends Controller
         }
 
         return view('home', compact('countUser','countPemisah','countPenilaianKerja'))->with('pemisahs', $pemisahs);
-        // return view('penilaian_kerjas.index')
-        //     ->with('pemisahs', $pemisahs);
     }
 }

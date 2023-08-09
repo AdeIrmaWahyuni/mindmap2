@@ -5,15 +5,16 @@
         <table id="penilaian-kerjas-table" class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>No Butir</th>
-                    <th>Bobot Penilaian</th>
-                    <th>Elemen Penilaian</th>
-                    <th>Deskriptor</th>
-                    <th>Baik Jika</th>
-                    <th>Hasil Asesmen</th>
-                    <th>Nilai</th>
-                    <th>Link</th>
-                    <th colspan="3">Action</th>
+                    <th style="background-color: #1E90FF">No Butir</th>
+                    <th style="background-color: #1E90FF">Bobot Penilaian</th>
+                    <th style="background-color: #1E90FF">Elemen Penilaian</th>
+                    <th style="background-color: #1E90FF">Deskriptor</th>
+                    <th style="background-color: #1E90FF">Baik Jika</th>
+                    <th style="background-color: #1E90FF">Hasil Asesmen</th>
+                    <th style="background-color: #1E90FF">Nilai</th>
+                    <th style="background-color: #1E90FF">Hasil</th>
+                    <th style="background-color: #1E90FF">Link</th>
+                    <th style="background-color: #1E90FF"colspan="3">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +52,7 @@
                             <td>{{ $penilaianKerjax->baik_jika }}</td>
                             <td>{{ $penilaianKerjax->hasil_asesmen }}</td>
                             <td>{{ $penilaianKerjax->penilaian }}</td>
+                            <td>{{ $penilaianKerjax->penilaian * $penilaianKerjax->bobot_penilaian}}</td>
                             <td>
                                 @foreach ($penilaianKerjax->linkArray as $link)
                                     <a href="{{ $link }}" target="_blank">{{ $link }}</a><br>
@@ -69,7 +71,7 @@
                                     </a>
                                     <a href="{{ route('penilaiankerjaimages', [$penilaianKerjax->id]) }}"
                                         class='btn btn-default btn-xs'>
-                                        <i class="far fa-eye"></i>
+                                        <i class="far fa-image"></i>
                                     </a>
                                     {!! Form::button('<i class="far fa-trash-alt"></i>', [
                                         'type' => 'submit',

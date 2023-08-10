@@ -57,7 +57,7 @@
                             <td>{{ $penilaianKerjax->no_butir }}</td>
                             <td>{{ $penilaianKerjax->bobot_penilaian }}</td>
                             <td>{{ $penilaianKerjax->elemen_penilaian }}</td>
-                            <tda>{{ $penilaianKerjax->deskriptor }}</tda>
+                            <td>{{ $penilaianKerjax->deskriptor }}</td>
                             <td>{{ $penilaianKerjax->baik_jika }}</td>
                             <td>{{ $penilaianKerjax->hasil_asesmen }}</td>
                             <td>{{ $penilaianKerjax->lokasi_penyimpanan }}</td>

@@ -34,6 +34,12 @@
     {!! Form::text('hasil_asesmen', null, ['class' => 'form-control']) !!}
 </div>
 
+
+<div class="form-group col-sm-6">
+    {!! Form::label('lokasi_penyimpanan', 'Lokasi Penyimpanan:') !!}
+    {!! Form::text('lokasi_penyimpanan', null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Pemisah Id Field -->
 {{-- <div class="form-group col-sm-6">
     {!! Form::label('pemisah_id', 'Pemisah Id:') !!}

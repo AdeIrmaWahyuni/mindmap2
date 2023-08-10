@@ -1,3 +1,8 @@
+@php
+    $totalPenilaian = 0;
+@endphp
+
+
 <div class="card-body p-0">
     <?php $nama = ''; ?>
     <div class="table-responsive">
@@ -11,6 +16,7 @@
                     <th style="background-color: #1E90FF">Deskriptor</th>
                     <th style="background-color: #1E90FF">Baik Jika</th>
                     <th style="background-color: #1E90FF">Hasil Asesmen</th>
+                    <th style="background-color: #1E90FF">Lokasi Penyimpanan</th>
                     <th style="background-color: #1E90FF">Nilai</th>
                     <th style="background-color: #1E90FF">Hasil</th>
                     <th style="background-color: #1E90FF">Link</th>
@@ -23,9 +29,12 @@
                     <?php $nama = $pemisah->nama; ?>
 
                     @foreach ($pemisah->penilaianKerjap as $penilaianKerjax)
+                        @php
+                            $totalPenilaian += ($penilaianKerjax->penilaian * $penilaianKerjax->bobot_penilaian);
+                        @endphp
                         <?php
                         if ($nama != '') {
-                            echo '<tr><td colspan="9" class="table-active"> ' . $nama . '  </td></tr>';
+                            echo '<tr><td colspan="11" class="table-active"> ' . $nama . '  </td></tr>';
                             $nama = '';
                         }
                         ?>
@@ -48,9 +57,10 @@
                             <td>{{ $penilaianKerjax->no_butir }}</td>
                             <td>{{ $penilaianKerjax->bobot_penilaian }}</td>
                             <td>{{ $penilaianKerjax->elemen_penilaian }}</td>
-                            <td>{{ $penilaianKerjax->deskriptor }}</td>
+                            <tda>{{ $penilaianKerjax->deskriptor }}</tda>
                             <td>{{ $penilaianKerjax->baik_jika }}</td>
                             <td>{{ $penilaianKerjax->hasil_asesmen }}</td>
+                            <td>{{ $penilaianKerjax->lokasi_penyimpanan }}</td>
                             <td>{{ $penilaianKerjax->penilaian }}</td>
                             <td>{{ $penilaianKerjax->penilaian * $penilaianKerjax->bobot_penilaian}}</td>
                             <td>
@@ -86,6 +96,14 @@
                 @endforeach
 
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6"></td>
+                    <td>Total:</td>
+                    <td>{{ $totalPenilaian }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
     

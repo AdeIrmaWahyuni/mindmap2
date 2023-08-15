@@ -27,7 +27,7 @@
         @csrf
 
         <div class="form-group col-sm-6">
-            <label for="formFileMultiple" class="form-label">Tambah File</label>
+            <label for="formFileMultiple" class="form-label">Tambah Gambar</label>
             <div class="input-group">
                 <input type="file" class="form-control" id="formFileMultiple" multiple name="files[]">
                 <label class="input-group-text" for="formFileMultiple">Pilih file</label>

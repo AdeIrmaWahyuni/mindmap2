@@ -19,6 +19,7 @@ class PenilaianKerja extends Model implements HasMedia
         'penilaian',
         'link',
         'hasil_asesmen',
+        'lokasi_penyimpanan',
         'pemisah_id',
         'users_id'
     ];
@@ -33,6 +34,7 @@ class PenilaianKerja extends Model implements HasMedia
         'penilaian' => 'integer',
         'link' => 'string',
         'hasil_asesmen' => 'string',
+        'lokasi_penyimpanan' => 'string',
         'pemisah_id' => 'integer',
         'users_id' => 'integer'
     ];

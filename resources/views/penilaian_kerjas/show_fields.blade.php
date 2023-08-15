@@ -36,25 +36,25 @@
 
 <!-- Created At Field -->
 <div class="col-sm-12">
-    {!! Form::label('created_at', 'Created At:') !!}
+    {!! Form::label('created_at', 'Waktu Input:') !!}
     <p>{{ $penilaianKerja->created_at }}</p>
 </div>
 
 <!-- Updated At Field -->
 <div class="col-sm-12">
-    {!! Form::label('updated_at', 'Updated At:') !!}
+    {!! Form::label('updated_at', 'Waktu Perbarui:') !!}
     <p>{{ $penilaianKerja->updated_at }}</p>
 </div>
 
 <!-- Pemisah Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('pemisah_id', 'Pemisah Id:') !!}
+    {!! Form::label('pemisah_id', 'Kriteria:') !!}
     <p>{{ $penilaianKerja->pemisah_id }}</p>
 </div>
 
 <!-- Users Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('users_id', 'Users Id:') !!}
+    {!! Form::label('users_id', 'Users:') !!}
     <p>{{ $penilaianKerja->users_id }}</p>
 </div>
 

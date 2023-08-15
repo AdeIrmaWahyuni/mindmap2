@@ -7,8 +7,9 @@
 <div class="row">
         <div class="col-md-4">
             <div class="card text-center mb-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">User</h5>
+                <div class="card-body" style="background-color: #00CED1;">
+                    <h5 class="card-title">
+                    <i style='font-size:35px' class='fas'>&#xf0c0;</i> User </h5>
                     <p class="card-text">{{ $countUser }}</p>
                     @if (Auth::check() && Auth::user()->hasRole('admin'))
                     <a href="{{ route('users.index') }}" class="btn btn-primary">Go</a>
@@ -19,8 +20,9 @@
 
         <div class="col-md-4">
             <div class="card text-center mb-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title ">Kriteria</h5>
+                <div class="card-body" style="background-color: #40E0D0;">
+                    <h5 class="card-title ">
+                    <i style='font-size:35px' class='fas'>&#xf15c;</i> Kriteria </h5>
                      <p class="card-text">{{ $countPemisah }}</p>
                      @if (Auth::check() && Auth::user()->hasRole('admin'))
                     <a href="{{ route('pemisahs.index') }}" class="btn btn-primary">Go</a>
@@ -32,8 +34,9 @@
 
         <div class="col-md-4">
             <div class="card text-center mb-3" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Penilaian Kerja</h5>
+                 <div class="card-body" style="background-color: #20B2AA;">
+                    <h5 class="card-title">
+                    <i style="font-size:35px" class="fa">&#xf303;</i> Penilaian Kerja</h5>
                      <p class="card-text">{{ $countPenilaianKerja }}</p>
                      @if (Auth::check() && Auth::user()->hasRole('admin'))
                         <a href="{{ route('penilaianKerjas.index') }}" class="btn btn-primary">Go</a>
@@ -56,14 +59,14 @@
         <table id="penilaian-kerjas-table" class="table table-striped table-hover">
             <thead>
             <tr>
-                <th>No Butir</th>
-                <th>Bobot Penilaian</th>
-                <th>Elemen Penilaian</th>
-                <th>Deskriptor</th>
-                <th>Baik Jika</th>
-                <th>Hasil Asesmen</th>
-                <th>Nilai</th>
-                <th>Link</th>
+                <th style="background-color: #1E90FF">No Butir</th>
+                <th style="background-color: #1E90FF">Bobot Penilaian</th>
+                <th style="background-color: #1E90FF">Elemen Penilaian</th>
+                <th style="background-color: #1E90FF">Deskriptor</th>
+                <th style="background-color: #1E90FF">Baik Jika</th>
+                <th style="background-color: #1E90FF">Hasil Asesmen</th>
+                <th style="background-color: #1E90FF">Nilai</th>
+                <th style="background-color: #1E90FF">Link</th>
             </tr>
             </thead>
             <tbody>

@@ -1,3 +1,8 @@
+@php
+    $totalPenilaian = 0;
+@endphp
+
+
 <div class="card-body p-0">
     <?php $nama = ''; ?>
     <div class="table-responsive">
@@ -5,26 +10,32 @@
         <table id="penilaian-kerjas-table" class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>No Butir</th>
-                    <th>Bobot Penilaian</th>
-                    <th>Elemen Penilaian</th>
-                    <th>Deskriptor</th>
-                    <th>Baik Jika</th>
-                    <th>Hasil Asesmen</th>
-                    <th>Nilai</th>
-                    <th>Link</th>
-                    <th colspan="3">Action</th>
+                    <th style="background-color: #1E90FF">Nomor</th>
+                    <th style="background-color: #1E90FF">No Butir</th>
+                    <th style="background-color: #1E90FF">Bobot Penilaian</th>
+                    <th style="background-color: #1E90FF">Elemen Penilaian</th>
+                    <th style="background-color: #1E90FF">Deskriptor</th>
+                    <th style="background-color: #1E90FF">Baik Jika</th>
+                    <th style="background-color: #1E90FF">Hasil Asesmen</th>
+                    <th style="background-color: #1E90FF">Lokasi Penyimpanan</th>
+                    <th style="background-color: #1E90FF">Nilai</th>
+                    <th style="background-color: #1E90FF">Hasil</th>
+                    <th style="background-color: #1E90FF">Link</th>
+                    <th style="background-color: #1E90FF"colspan="3">Action</th>
                 </tr>
             </thead>
             <tbody>
-
+                <?php $i = 1; ?>
                 @foreach ($pemisahs as $pemisah)
                     <?php $nama = $pemisah->nama; ?>
 
                     @foreach ($pemisah->penilaianKerjap as $penilaianKerjax)
+                        @php
+                            $totalPenilaian += $penilaianKerjax->penilaian * $penilaianKerjax->bobot_penilaian;
+                        @endphp
                         <?php
                         if ($nama != '') {
-                            echo '<tr><td colspan="9" class="table-active"> ' . $nama . '  </td></tr>';
+                            echo '<tr><td colspan="12" class="table-active"> ' . $nama . '  </td></tr>';
                             $nama = '';
                         }
                         ?>
@@ -33,24 +44,27 @@
                             $penilaian = $penilaianKerjax->penilaian;
                             $bgColor = '';
                             if ($penilaian >= 4) {
-                                $bgColor = 'bg-success';
+                                $bgColor = '#97ed74'; // Hijau lebih lembut
                             } elseif ($penilaian == 3) {
-                                $bgColor = 'bg-warning';
+                                $bgColor = '#e8ae41'; // Orange muda lebih lembut
                             } elseif ($penilaian == 2) {
-                                $bgColor = 'bg-orange';
+                                $bgColor = '#d9d334'; // Kuning lebih lembut
                             } elseif ($penilaian == 1) {
-                                $bgColor = 'bg-danger';
+                                $bgColor = '#e35d5d'; // Merah lebih lembut
                             }
                         @endphp
 
-                        <tr class="{{ $bgColor }}">
+                        <tr style="background-color: {{ $bgColor }};">
+                            <td>{{ $i++ }}</td>
                             <td>{{ $penilaianKerjax->no_butir }}</td>
                             <td>{{ $penilaianKerjax->bobot_penilaian }}</td>
                             <td>{{ $penilaianKerjax->elemen_penilaian }}</td>
                             <td>{{ $penilaianKerjax->deskriptor }}</td>
                             <td>{{ $penilaianKerjax->baik_jika }}</td>
                             <td>{{ $penilaianKerjax->hasil_asesmen }}</td>
+                            <td>{{ $penilaianKerjax->lokasi_penyimpanan }}</td>
                             <td>{{ $penilaianKerjax->penilaian }}</td>
+                            <td>{{ $penilaianKerjax->penilaian * $penilaianKerjax->bobot_penilaian }}</td>
                             <td>
                                 @foreach ($penilaianKerjax->linkArray as $link)
                                     <a href="{{ $link }}" target="_blank">{{ $link }}</a><br>
@@ -69,7 +83,7 @@
                                     </a>
                                     <a href="{{ route('penilaiankerjaimages', [$penilaianKerjax->id]) }}"
                                         class='btn btn-default btn-xs'>
-                                        <i class="far fa-eye"></i>
+                                        <i class="far fa-image"></i>
                                     </a>
                                     {!! Form::button('<i class="far fa-trash-alt"></i>', [
                                         'type' => 'submit',
@@ -84,9 +98,17 @@
                 @endforeach
 
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="9"></td>
+                    <td>Total:</td>
+                    <td>{{ $totalPenilaian }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
-    
+
 
 
     <div class="card-footer clearfix">

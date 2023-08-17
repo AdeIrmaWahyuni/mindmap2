@@ -17,11 +17,19 @@
 
 </head>
 
-<body class="hold-transition login-page" style="background-image: url('/img/t.jpg')">
+<body class="hold-transition login-page" style="background-image: url('/img/trp.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;">
+
     <div class="login-box">
         <div class="login-logo">
             <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
-            <img align="top" src="{{ asset('img/p.png') }}" alt="Logo" style="width: 150px; height: 150px;">
+        <br>
+        <br>
+            <img align="top" src="{{ asset('img/trpl.jpg') }}" alt="Logo" style="width: 150px; height: 150px;">
+        <br>
         </div>
         <!-- /.login-logo -->
 
